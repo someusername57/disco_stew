@@ -1,0 +1,144 @@
+body{
+    margin: 0;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    background-color: #1597e8;
+    font-family: 'Comfortaa', cursive;
+    color: white;
+}
+
+footer{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.container{
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#content{
+    position: relative;
+    top: 45%;
+    transition: top .3s;
+}
+
+#content:before{
+    content: '';
+    display: table;
+    clear: both;
+}
+.progress-button{
+	margin: 30px auto;
+	display: block;
+	
+}
+.progress-button button{
+	background-color: #a8e07a;
+}
+.progress-button span{
+	color: #1f1f1f;
+}
+
+header{
+    text-align: center;
+    height: 2px;
+    background-color: #3ba9e7;
+    margin: 3em 0;
+}
+
+header > *{
+	display: inline-block;
+	margin: 0;
+	padding: 0 20px;
+	transform: translateY(-50%);
+	background-color: #1597e8;
+	font-size: 5.7em;
+	font-weight: bolder;
+	/* text-transform: uppercase; */
+}
+
+.some-text{
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: normal;
+    margin-bottom: 1em;
+}
+
+textarea {
+    border: 1px solid #fff;
+    border-radius: 7px;
+    font-size: 1em;
+    background: none;
+    width: 100%;
+    height: 50px;
+    padding: 24px 2em;
+    box-sizing: border-box;
+    color: white;
+    resize: none;
+    display: block;
+    font-family: 'Comfortaa', cursive;
+	font-weight: 300;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #fff;
+	opacity: 1;
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #fff;
+	opacity: 1;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #fff;
+	opacity: 1;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #fff;
+	opacity: 1;
+}
+
+button{
+	background-color: #a8e07a;
+	border: none;
+	padding: .85em 5em;
+	font-size: 1em;
+	display: block;
+	border-radius: 7px;
+	margin: 2em auto 0;
+	cursor: pointer;
+	color: #1f1f1f;
+	font-family: 'Comfortaa', cursive;
+	font-weight: 400;
+}
+
+#res{
+    height: 0;
+    transition: height 1s;
+    overflow: hidden;
+}
+
+.res-content{
+    font-family: 'Comfortaa', cursive;
+    border: 1px solid #fff;
+    border-radius: 7px;
+    font-size: 1.15em;
+    width: 100%;
+    padding: 24px 2em;
+    box-sizing: border-box;
+    color: white;
+
+	font-weight: 300;
+}
+
+#add_params > p{
+    float: left;
+    text-align: center;
+    width: 33.3333%;
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>BullGuard</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,700&amp;subset=cyrillic" rel="stylesheet">
+        
+		<link rel="stylesheet" type="text/css" href="css/component.css" />
+		<link rel="stylesheet" href="css/main.css" />
+		<script src="js/modernizr.custom.js"></script>
+    </head>
+    <body>
+        <div id="content">
+            <header><h1>BullGuard</h1></header>
+            <p class="container some-text">Жизнь без буллинга!</p>
+            <div class="container">
+                <textarea id="msg" placeholder="Введите текст, для анализа"></textarea>
+                
+				<div class="progress-button elastic">
+					<button><span>Анализировать</span></button>
+					<svg class="progress-circle" width="70" height="70"><path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/></svg>
+					<svg class="checkmark" width="70" height="70"><path d="m31.5,46.5l15.3,-23.2"/><path d="m31.5,46.5l-8.5,-7.1"/></svg>
+					<svg class="cross" width="70" height="70"><path d="m35,35l-9.3,-9.3"/><path d="m35,35l9.3,9.3"/><path d="m35,35l-9.3,9.3"/><path d="m35,35l9.3,-9.3"/></svg>
+				</div>
+            </div>
+            <div id="res" class="container">
+                <p class="some-text">Исправленный текст</p>
+                <p id="safe" class="res-content"></p>
+                <div id="add_params">
+
+                </div>
+            </div>
+        </div>
+        <footer>
+            
+        </footer>
+		<script src="js/classie.js"></script>
+		<script src="js/uiProgressButton.js"></script>
+        <script>
+			
+			new UIProgressButton( document.querySelector( '.progress-button' ), {
+					callback : function( instance ) {
+						
+						var progress = 0,
+							interval = setInterval( function() {
+								progress = Math.min( progress + Math.random() * 0.1, 1 );
+								instance.setProgress( progress );
+
+								if( progress === 1 ) {
+									instance.stop( 1 );
+									clearInterval( interval );
+								}
+							}, 150 );
+						get("./api/?q=" +  document.getElementById('msg').value,function(r){
+							var x = JSON.parse(r);
+							console.log(x);
+							clearInterval( interval );
+							instance.setProgress( 1 );
+							instance.stop( 1 );
+							if(x.error === 'unvalid'){
+								return false;
+							} else 
+							{
+							
+								if (x.result.trim() == ''){
+									alert("Сообщение было удаено");
+									return false;
+								} 
+								document.getElementById('safe').innerHTML = x.result;
+								var html = "";
+								for (var key in x.detail) {
+									html += "<p>" + key + ": " + x.detail[key] + "%</p>";
+								}
+								document.getElementById('add_params').innerHTML = html;
+							}
+							document.getElementById('res').style.height = document.getElementById('res').scrollHeight + 'px';
+							window.scrollBy(0, 9999);
+						});
+					}
+				} );
+			
+			
+			
+            document.querySelector('textarea').style.height = (document.querySelector('textarea').scrollHeight + 2) + 'px';
+            document.querySelector('textarea').onkeydown = function(){
+                this.style.height = '50px';
+                this.style.height = (this.scrollHeight + 2) + 'px';
+            };
+            setInterval(function(){
+                if (document.getElementById('content').offsetHeight < window.innerHeight){
+                    document.getElementById('content').style.top = ((window.innerHeight - document.getElementById('content').offsetHeight)/2) + 'px';
+                } else {
+                    document.getElementById('content').style.top = 0;
+                }
+            }, 100);
+            
+            
+			
+			function get(url, callback)
+			{
+				var xmlHttp = new XMLHttpRequest();
+				xmlHttp.open( "GET", url, false );
+				xmlHttp.onreadystatechange = function (){
+					if(xmlHttp.readyState === 4){
+						if (xmlHttp.status === 200){
+							callback(xmlHttp.responseText);
+						}
+					}
+				};
+				xmlHttp.send( null );
+				
+			}
+        </script>
+    </body>
+</html>
