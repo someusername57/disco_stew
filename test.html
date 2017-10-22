@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Drag the blue boxes into the red box and back</h1>
+<div id="big" ondragenter="return dragEnter(event)"
+     ondrop="return dragDrop(event)" 
+     ondragover="return dragOver(event)"></div>
+<section id="section"  ondragenter="return dragEnter(event)" 
+     ondrop="return dragDrop(event)" 
+     ondragover="return dragOver(event)">
+<div class="drag" id="boxA" draggable="true" ondragstart="return dragStart(event)"></div>
+<div class="drag" id="boxB" draggable="true" ondragstart="return dragStart(event)"></div>
+</section>
+        <style>
+            .drag {
+  width: 200px;
+  height: 200px;
+  background: blue;
+  display: inline-block;
+  margin-right: 10px;
+}
+#boxB{
+  margin-right: 0px;
+}
+#big {
+  width: 415px;
+  height: 400px;
+  background: red;
+  margin: 20px auto;
+}
+section {
+width: 415px;
+  height: 200px;
+  background:gray;
+  margin: 20px auto;
+}
+        </style>
+        <script>
+            function dragStart(ev) {
+   ev.dataTransfer.effectAllowed='move';
+   ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
+   ev.dataTransfer.setDragImage(ev.target,100,100);
+   return true;
+}
+function dragEnter(ev) {
+   event.preventDefault();
+   return true;
+}
+function dragOver(ev) {
+     event.preventDefault();
+}
+function dragDrop(ev) {
+   var data = ev.dataTransfer.getData("Text");
+   ev.target.appendChild(document.getElementById(data));
+   ev.stopPropagation();
+   return false;
+}
+        </script>
+    </body>
+</html>
